@@ -4,7 +4,7 @@ I find this remarkable because it demonstrates a well-structured and type-safe i
 
 # 2. What quality controls were or not used? Little explanation:
 
-The implementation uses TypeScript typing as a quality control, ensuring that only valid states and events can be used, preventing many runtime errors. The useMemo hook provides performance-related control by memoizing action functions to avoid unnecessary re-renders. However, there are no runtime checks for invalid transitions—they are silently ignored—so adding warnings or errors could improve runtime reliability. The component is also dependency-free, relying only on React itself, which minimizes potential issues from third-party libraries.
+The implementation uses TypeScript typing as a quality control, ensuring that only valid states and events can be used, preventing many runtime errors. The useMemo hook provides performance-related control by memoizing action functions to avoid unnecessary re-renders. The component is also dependency-free, relying only on React itself, which minimizes potential issues from third-party libraries.
 
 # useMachine
 
