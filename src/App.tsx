@@ -6,18 +6,10 @@ type State = "idle" | "running" | "paused" | "end";
 const machine: Machine<State> = {
   initial: "idle",
   states: {
-    idle: {
-      on: { START: "running" },
-    },
-    running: {
-      on: { STOP: "end", PAUSE: "paused" },
-    },
-    paused: {
-      on: { RESUME: "running", STOP: "end" },
-    },
-    end: {
-      on: { RESET: "idle" },
-    },
+    idle:  { START: "running" },
+    running:  { STOP: "end", PAUSE: "paused" },
+    paused:  { RESUME: "running", STOP: "end" },
+    end:  { RESET: "idle" }
   },
 };
 
