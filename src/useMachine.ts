@@ -1,11 +1,11 @@
 import React from "react";
 
-type Config<S extends string> =  Record<string, S>;
+type Actions<S extends string> = Record<string, S>;
 
 
 export type Machine<S extends string> = {
   initial: S;
-  states: Record<S, Config<S>>;
+  states: Record<S, Actions<S>>;
 };
 
 export const useMachine = <S extends string>(machine: Machine<S>) => {
@@ -13,13 +13,14 @@ export const useMachine = <S extends string>(machine: Machine<S>) => {
 
   const transition = <E extends string>(event: E) => {
     const nextState = machine.states[state][event];
-    if (nextState) setState(nextState);
+    if (!nextState) throw new Error('Unknown Action')
+    setState(nextState);
   };
 
   const actions = React.useMemo(() => {
-    const currentConfig = machine.states[state];
-    type Events = Extract<keyof (typeof currentConfig), string>;
-    const keys = Object.keys(currentConfig) as Events[];
+    const config = machine.states[state];
+    type Events = Extract<keyof (typeof config), string>;
+    const keys = Object.keys(config) as Events[];
 
     return keys.reduce((acc, event) => {
       acc[event] = () => transition(event);
